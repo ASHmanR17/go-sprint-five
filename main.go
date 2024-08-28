@@ -33,6 +33,9 @@ func (t Training) distance() float64 {
 // meanSpeed возвращает среднюю скорость бега или ходьбы.
 func (t Training) meanSpeed() float64 {
 	// вставьте ваш код ниже
+	if t.Duration.Hours() == 0 {
+		return 0
+	}
 	return t.distance() / t.Duration.Hours()
 }
 
@@ -135,7 +138,7 @@ func (w Walking) Calories() float64 {
 	if w.Height == 0 {
 		return 0
 	}
-	heightInM := w.Height / CmInM
+	heightInM := w.Height / CmInM // рост_в_метрах
 	return (CaloriesWeightMultiplier*w.Weight + ((w.meanSpeed()*KmHInMsec)*(w.meanSpeed()*KmHInMsec)/heightInM)*CaloriesSpeedHeightMultiplier*w.Weight) * w.Duration.Hours() * MinInHours
 }
 
